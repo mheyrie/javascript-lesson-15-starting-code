@@ -14,6 +14,11 @@ function saveToStorage() {
   localStorage.setItem('cart', JSON.stringify(cart));
 }
 
+
+// Save the timeout as an Object
+
+
+
 export function addToCart(productId) {
   let matchingItem;
 
@@ -23,15 +28,30 @@ export function addToCart(productId) {
     }
   });
 
+  const addedMessageTimeouts = {}
   // Add to Cart using dropdown numbers
   const quantitySelector = document.querySelector(`.js-quantity-selector-${productId}`)
   const quantity = Number(quantitySelector.value)
 
   // Show checked added message
   const addedMessage = document.querySelector(`.js-added-to-cart-${productId}`)
-  addedMessage.classList.add("added-to-cart-visible")
 
-  
+  addedMessage.classList.add('added-to-cart-visible')
+    // Set-time out to control when the added message shows and disapper
+  setTimeout(() => {
+    const previousTimeoutId = addedMessageTimeouts[productId];
+    if(!previousTimeoutId) {
+      clearTimeout(previousTimeoutId)
+    }
+
+    const timeoutId = setTimeout(() =>{
+      addedMessage.classList.remove("added-to-cart-visible")
+      }, 2000)
+
+      addedMessageTimeouts[productId] = timeoutId
+    })
+   
+
 
   if (matchingItem) {
     matchingItem.quantity += 1;
