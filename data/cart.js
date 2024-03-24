@@ -23,12 +23,17 @@ export function addToCart(productId) {
     }
   });
 
+  // Add to Cart using dropdown numbers
+  const quantitySelector = document.querySelector(`.js-quantity-selector-${productId}`)
+  const quantity = Number(quantitySelector.value)
+
   if (matchingItem) {
     matchingItem.quantity += 1;
+    matchingItem.quantity += quantity
   } else {
     cart.push({
       productId: productId,
-      quantity: 1
+      quantity: quantity
     });
   }
 
