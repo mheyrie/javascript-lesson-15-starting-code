@@ -656,5 +656,36 @@ export const products = [
       "apparel",
       "mens"
     ]
+  },
+  {
+    id: "1",
+    image: "images/products/solarlight.jpg",
+    name: "Huaxu Solar Lights Outdoor Garden, Tabletop,Ground",
+    rating: {
+      stars: 4.5,
+      count: 4104
+    },
+    priceCents: 2999,
+    keywords: [
+      "outdoor",
+      "tabletop",
+      "lawn",
+      "walkway"
+    ]
+  },
+  {
+    id: "2",
+    image: "images/products/backpack.jpg",
+    name: "Black Laptop Back Pack",
+    rating: {
+      stars: 4.0,
+      count: 2104
+    },
+    priceCents: 10099,
+    keywords: [
+      "laptop",
+      "school",
+      "student"
+    ]
   }
 ];

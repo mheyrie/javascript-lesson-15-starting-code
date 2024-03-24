@@ -27,17 +27,24 @@ export function addToCart(productId) {
   const quantitySelector = document.querySelector(`.js-quantity-selector-${productId}`)
   const quantity = Number(quantitySelector.value)
 
+  // Show checked added message
+  const addedMessage = document.querySelector(`.js-added-to-cart-${productId}`)
+  addedMessage.classList.add("added-to-cart-visible")
+
+  
+
   if (matchingItem) {
     matchingItem.quantity += 1;
     matchingItem.quantity += quantity
   } else {
     cart.push({
-      productId: productId,
-      quantity: quantity
+      productId,
+      quantity
     });
   }
 
   saveToStorage();
+
 }
 
 export function removeFromCart(productId) {
