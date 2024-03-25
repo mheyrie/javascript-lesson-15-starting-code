@@ -15,7 +15,7 @@ function saveToStorage() {
 }
 
 
-// Save the timeout as an Object
+
 
 
 
@@ -27,7 +27,9 @@ export function addToCart(productId) {
       matchingItem = cartItem;
     }
   });
-
+  
+  
+  // Save the timeout as an Object
   const addedMessageTimeouts = {}
   // Add to Cart using dropdown numbers
   const quantitySelector = document.querySelector(`.js-quantity-selector-${productId}`)
