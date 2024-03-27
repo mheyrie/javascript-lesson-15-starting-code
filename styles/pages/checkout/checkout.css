@@ -136,6 +136,10 @@
   display: initial;
 }
 
+.is-editing-quantity .update-quantity-link{
+  display: none;
+}
+
 
 @media (max-width: 1000px) {
   .delivery-options {
