@@ -56,7 +56,7 @@ export function addToCart(productId) {
 
 
   if (matchingItem) {
-    matchingItem.quantity += 1;
+    // matchingItem.quantity += 1;
     matchingItem.quantity += quantity
   } else {
     cart.push({
@@ -67,6 +67,15 @@ export function addToCart(productId) {
 
   saveToStorage();
 
+}
+
+export function calculateCartQuantity() {
+  let cartQuantity = 0;
+
+  cart.forEach((cartItem) => {
+    cartQuantity += cartItem.quantity;
+  });
+  return cartQuantity
 }
 
 export function removeFromCart(productId) {
