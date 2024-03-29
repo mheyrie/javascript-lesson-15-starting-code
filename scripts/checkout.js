@@ -141,12 +141,12 @@ document.querySelectorAll('.js-save-link')
 
     const newQuantity = Number(quantityInput.value)
 
-    newQuantity.addEventListener("key")
-
     if (newQuantity < 0 || newQuantity >= 1000){
       alert("Quantity must be at least 0 and less than 1000");
       return;
     }
+
+    
     updateQuantity(productId, newQuantity)
 
     const container = document.querySelector(
@@ -162,5 +162,12 @@ document.querySelectorAll('.js-save-link')
 
     updateCartQuantity()
   });
+
+  const quantityInput = link.closest('.cart-item-container').querySelector('.js-quantity-input-' + link.dataset.productId); 
+  quantityInput.addEventListener('keydown', (event) => {
+  if (event.key === 'Enter') {
+    link.click();
+  }
+});
 });
 

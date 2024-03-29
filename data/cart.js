@@ -99,6 +99,7 @@ export function updateQuantity(productId, newQuantity){
     if (productId === cartItem.productId) {
       matchingItem = cartItem;
     }
+    
   });
 
   matchingItem.quantity = newQuantity
