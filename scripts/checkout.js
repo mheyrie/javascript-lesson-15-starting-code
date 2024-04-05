@@ -2,8 +2,10 @@ import {cart, removeFromCart,calculateCartQuantity, updateQuantity} from '../dat
 import {products} from '../data/products.js';
 import {formatCurrency} from './utils/money.js';
 
-console.log("Hello")
-console.log(dayjs())
+
+const today = dayjs()
+const deliveryDate = today.add(7, 'days')
+console.log(deliveryDate)
 
 let cartSummaryHTML = '';
 
