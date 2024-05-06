@@ -6,9 +6,32 @@
     <title>Document</title>
     <script defer type="module">
         import  dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
+
+        function datee(){
+            const today = dayjs();
+            // const date = today.add(5, 'days').format('YYYY-MMMM-DD')
+            // const date = today.add(5, 'Month').format('YYYY-MMMM')
+            // const date = today.subtract(5, 'Month').format('YYYY-MMMM-DD')
+
+
+            const date = today.format('dddd')
+            document.getElementById('displayDate').textContent = date
+        }
+
+        window.datee = datee
+
+        const isWeekend = () => {
+            
+        }
+
     </script>
 </head>
 <body>
     <h1>Trying out my dayjs Module Usage</h1>
+    <button onclick="datee()"> Show Date</button>
+    <br>
+    <br>
+    
+    <div id="displayDate"></div>
 </body>
 </html>
