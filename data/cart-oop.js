@@ -3,10 +3,10 @@ const cart = {
 
     loadFromStorage() {
 
-    cart.cartItems = JSON.parse(localStorage.getItem('cart'));
+    this.cartItems = JSON.parse(localStorage.getItem('cart--oop'));
 
-    if (!cart.cartItems) {
-        cart.cartItems = [{
+    if (!this.cartItems) {
+        this.cartItems = [{
         productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
         quantity: 2,
         deliveryOptionId: '1'
@@ -17,124 +17,137 @@ const cart = {
         }];
     }
 
-    }
-}
+    },
 
-loadFromStorage()
-
-
-
-
-function saveToStorage() {
-  localStorage.setItem('cart', JSON.stringify(cart));
-}
+    saveToStorage() {
+        localStorage.setItem('cart-oop', JSON.stringify(this.cartItems));
+      },
 
 
- // Save the timeout as an Object
-const addedMessageTimeouts = {}
+    addToCart(productId) {
+        let matchingItem;
 
-export function addToCart(productId) {
-  let matchingItem;
+        this.cartItems.forEach((cartItem) => {
+            if (productId === cartItem.productId) {
+            matchingItem = cartItem;
+            }
+        });
+        
+        // Add to Cart using dropdown numbers
+        const quantitySelector = document.querySelector(`.js-quantity-selector-${productId}`)
 
-  cart.forEach((cartItem) => {
-    if (productId === cartItem.productId) {
-      matchingItem = cartItem;
-    }
-  });
-   
-  // Add to Cart using dropdown numbers
-  const quantitySelector = document.querySelector(`.js-quantity-selector-${productId}`)
+        
 
-  // Added this because i was getting error when running the test
-  if(!quantitySelector){
-    console.error('Quantity selector not found');
-    return;
-  }
-  const quantity = Number(quantitySelector.value)
+        // Added this because i was getting error when running the test
+        if(!quantitySelector){
+            console.error('Quantity selector not found');
+            return;
+        }
+        const quantity = Number(quantitySelector.value)
+            console.log(quantity)
+         // Save the timeout as an Object
+        const addedMessageTimeouts = {}
 
-  // Show checked added message
-  const addedMessage = document.querySelector(`.js-added-to-cart-${productId}`)
+        // Show checked added message
+        const addedMessage = document.querySelector(`.js-added-to-cart-${productId}`)
 
-  addedMessage.classList.add('added-to-cart-visible')
-    // Set-time out to control when the added message shows and disapper
-  setTimeout(() => {
-    const previousTimeoutId = addedMessageTimeouts[productId];
-    if(!previousTimeoutId) {
-      clearTimeout(previousTimeoutId)
-    }
+        addedMessage.classList.add('added-to-cart-visible')
+            // Set-time out to control when the added message shows and disapper
+        setTimeout(() => {
+            const previousTimeoutId = addedMessageTimeouts[productId];
+            if(!previousTimeoutId) {
+            clearTimeout(previousTimeoutId)
+            }
 
-    const timeoutId = setTimeout(() =>{
-      addedMessage.classList.remove("added-to-cart-visible")
-      }, 2000)
+            const timeoutId = setTimeout(() =>{
+            addedMessage.classList.remove("added-to-cart-visible")
+            }, 2000)
 
-      addedMessageTimeouts[productId] = timeoutId
-    })
-  
-  if (matchingItem) {
-    // matchingItem.quantity += 1;
-    matchingItem.quantity += quantity
-  } else {
-    cart.push({
-      productId,
-      quantity,
-      deliveryOptionId: '1',
-    });
-  }
+            addedMessageTimeouts[productId] = timeoutId
+            })
+        
+        if (matchingItem) {
+            matchingItem.quantity += 1;
+            // matchingItem.quantity += quantity
+        } else {
+            this.cartItems.push({
+            productId,
+            quantity,
+            deliveryOptionId: '1',
+            });
+        }
 
-  saveToStorage();
+        this.saveToStorage();
+    },
 
-}
+    calculateCartQuantity() {
+        let cartQuantity = 0;
+      
+        this.cartItems.forEach((cartItem) => {
+          cartQuantity += cartItem.quantity;
+        });
+        return cartQuantity
+      },
 
-export function calculateCartQuantity() {
-  let cartQuantity = 0;
+    removeFromCart(productId) {
+        const newCart = [];
+      
+        this.cartItems.forEach((cartItem) => {
+          if (cartItem.productId !== productId) {
+            newCart.push(cartItem);
+          }
+        });
+      
+        this.cartItems = newCart;
+      
+        this.saveToStorage();
+      },
 
-  cart.forEach((cartItem) => {
-    cartQuantity += cartItem.quantity;
-  });
-  return cartQuantity
-}
+    updateQuantity(productId, newQuantity){
+        let matchingItem;
 
-export function removeFromCart(productId) {
-  const newCart = [];
+        this.cartItems.forEach((cartItem) => {
+            if (productId === cartItem.productId) {
+            matchingItem = cartItem;
+            }
+            
+        });
 
-  cart.forEach((cartItem) => {
-    if (cartItem.productId !== productId) {
-      newCart.push(cartItem);
-    }
-  });
+        matchingItem.quantity = newQuantity
+        this.saveToStorage()
+        },
 
-  cart = newCart;
+    updateDeliveryOption(productId, deliveryOptionId){
+        let matchingItem;
 
-  saveToStorage();
-}
+        this.cartItems.forEach((cartItem) => {
+            if (productId === cartItem.productId) {
+            matchingItem = cartItem;
+            }
+        });
 
+        matchingItem.deliveryOptionId = deliveryOptionId;
 
+        this.saveToStorage()
 
-export function updateQuantity(productId, newQuantity){
-  let matchingItem;
-
-  cart.forEach((cartItem) => {
-    if (productId === cartItem.productId) {
-      matchingItem = cartItem;
-    }
-    
-  });
-
-  matchingItem.quantity = newQuantity
-  saveToStorage()
-}
-
-export function updateDeliveryOption(productId, deliveryOptionId){
-  let matchingItem;
-
-  cart.forEach((cartItem) => {
-    if (productId === cartItem.productId) {
-      matchingItem = cartItem;
-    }
-  });
-
-  matchingItem.deliveryOptionId = deliveryOptionId;
-
-  saveToStorage()
+        }
 
 }
+
+cart.loadFromStorage()
+
+cart.addToCart('83d4ca15-0f35-48f5-b7a3-1ea210004f2e')
+
+console.log(cart)
+
+
+
+ 
+
+
+
+ 
+
+
+
+
